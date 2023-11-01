@@ -55,7 +55,7 @@ features = ["Pclass", "Sex", "SibSp", "Parch", "FamilySize","AgeCategory"]
 X = pd.get_dummies(train_data[features])
 X_test = pd.get_dummies(test_data[features])
 
-model = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=1)
+model = RandomForestClassifier(n_estimators=100, max_depth=6, random_state=1)
 model.fit(X, y)
 predictions = model.predict(X_test)
 
