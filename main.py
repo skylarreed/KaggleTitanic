@@ -27,15 +27,14 @@ rate_men = sum(men)/len(men)
 
 print("% of men who survived:", rate_men)
 
-
-train_data["FamilySize"] = train_data["SibSp"] + train_data["Parch"]
-
 # Create the FamilySize feature for the test data
+train_data["FamilySize"] = train_data["SibSp"] + train_data["Parch"]
 test_data["FamilySize"] = test_data["SibSp"] + test_data["Parch"]
+
+# Create the Age categories feature for the test data
 age_bins = [0, 18, 30, 50, float('inf')]  # Define the age bins
 age_labels = ['Child', 'Young Adult', 'Adult', 'Senior']  # Define labels for each bin
 train_data['AgeCategory'] = pd.cut(train_data['Age'], bins=age_bins, labels=age_labels)
-# Continue with the rest of your code
 y = train_data["Survived"]
 
 test_data['AgeCategory'] = pd.cut(test_data['Age'], bins=age_bins, labels=age_labels)
