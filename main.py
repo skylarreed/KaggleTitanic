@@ -35,10 +35,23 @@ test_data["FamilySize"] = test_data["SibSp"] + test_data["Parch"]
 age_bins = [0, 18, 30, 50, float('inf')]  # Define the age bins
 age_labels = ['Child', 'Young Adult', 'Adult', 'Senior']  # Define labels for each bin
 train_data['AgeCategory'] = pd.cut(train_data['Age'], bins=age_bins, labels=age_labels)
+
+# We want to add fare categories in this model too, but it give us a lower prediction score. Thus,
+# We will not put it in for not. However, we think we can do something with it by changing the tree size or its 
+# depth. Here is our code:
+#   fare_bins = [0, 13, 30, 80, float('inf')]  # Define the age bins
+#   fare_labels = ['low', 'medium', 'high', 'extreme']  # Define labels for each bin
+
+#  Apply the categorization to the DataFrame
+#   train_data['FareCategory'] = pd.cut(train_data['Fare'], bins=fare_bins, labels=fare_labels)
+#   test_data['FareCategory'] = pd.cut(train_data['Fare'], bins=fare_bins, labels=fare_labels)
+
 y = train_data["Survived"]
 
 test_data['AgeCategory'] = pd.cut(test_data['Age'], bins=age_bins, labels=age_labels)
 features = ["Pclass", "Sex", "SibSp", "Parch", "FamilySize","AgeCategory"]
+# With the fare categories
+# features = ["Pclass", "Sex", "SibSp", "Parch","AgeCategory","FareCategory"]
 X = pd.get_dummies(train_data[features])
 X_test = pd.get_dummies(test_data[features])
 
