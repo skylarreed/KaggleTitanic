@@ -1,5 +1,8 @@
 import numpy as np
 import pandas as pd
+#  Viewing the chart
+import matplotlib.pyplot as plt 
+
 from sklearn.ensemble import RandomForestClassifier
 
 import os
@@ -24,9 +27,19 @@ rate_men = sum(men)/len(men)
 
 print("% of men who survived:", rate_men)
 
+
+train_data["FamilySize"] = train_data["SibSp"] + train_data["Parch"]
+
+# Create the FamilySize feature for the test data
+test_data["FamilySize"] = test_data["SibSp"] + test_data["Parch"]
+age_bins = [0, 18, 30, 50, float('inf')]  # Define the age bins
+age_labels = ['Child', 'Young Adult', 'Adult', 'Senior']  # Define labels for each bin
+train_data['AgeCategory'] = pd.cut(train_data['Age'], bins=age_bins, labels=age_labels)
+# Continue with the rest of your code
 y = train_data["Survived"]
 
-features = ["Pclass", "Sex", "SibSp", "Parch"]
+test_data['AgeCategory'] = pd.cut(test_data['Age'], bins=age_bins, labels=age_labels)
+features = ["Pclass", "Sex", "SibSp", "Parch", "FamilySize","AgeCategory"]
 X = pd.get_dummies(train_data[features])
 X_test = pd.get_dummies(test_data[features])
 
